@@ -3,15 +3,21 @@ import tweepy
 import random
 import json
 import time
+import os
 
-def botaccess(secret):
-    with open(secret) as o:
-        access = json.load(o)
-    return access
+#def botaccess(secret):
+#    with open(secret) as o:
+#        access = json.load(o)
+#    return access
 
-def tweepyaccess(keydict):
-    auth = tweepy.OAuthHandler(keydict["api-key"], keydict["api-secret"])
-    auth.set_access_token(keydict["access-token"], keydict["access-secret"])
+def tweepyaccess():
+    CONSUMER_KEY = os.environ['CONSUMER_KEY']
+    CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
+    ACCESS_KEY = os.environ['ACCESS_KEY']
+    ACCESS_SECRET = os.environ['ACCESS_SECRET']
+
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
     api = tweepy.API(auth)
     return api
 
@@ -24,8 +30,8 @@ def when_last_tweet(api, username):
         return status.created_at
 
 def main():
-    keydict = botaccess("keys.json")
-    api = tweepyaccess(keydict)
+#    keydict = botaccess("keys.json")
+    api = tweepyaccess()
     my_last = when_last_tweet(api, "NoOneAskedNeil")
 
     while True:
@@ -36,7 +42,6 @@ def main():
             new_twt = api.get_status(last_neil_id, tweet_mode='extended')._json['full_text']
             api.update_status("Not that anyone asked me but %s" % (new_twt))
             my_last = when_last_tweet(api, "NoOneAskedNeil")
-        else: main()
 
 if __name__ == '__main__':
     main()
