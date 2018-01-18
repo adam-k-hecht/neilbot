@@ -1,2 +1,2 @@
-webr: python -m http.server $PORT &
+webr: python -m http.server $PORT 
 worker: python main.py
