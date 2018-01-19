@@ -1,14 +1,6 @@
-from datetime import datetime
 import tweepy
-import random
-import json
 import time
 import os
-
-#def botaccess(secret):
-#    with open(secret) as o:
-#        access = json.load(o)
-#    return access
 
 def tweepyaccess():
     CONSUMER_KEY = os.environ['CONSUMER_KEY']
