@@ -9,4 +9,4 @@ requests-oauthlib==0.8.0
 ruamel.yaml==0.15.35
 six==1.11.0
 tweepy==3.5.0
-urllib3==1.22
+urllib3==1.26.5
